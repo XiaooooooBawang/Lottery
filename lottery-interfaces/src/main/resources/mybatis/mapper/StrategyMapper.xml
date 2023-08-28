@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xbw.lottery.infrastructure.dao.IStrategyDao">
+
+    <resultMap id="StrategyMap" type="com.xbw.lottery.infrastructure.po.Strategy">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="strategyId" column="strategy_id" jdbcType="BIGINT"/>
+            <result property="strategyDesc" column="strategy_desc" jdbcType="VARCHAR"/>
+            <result property="strategyMode" column="strategy_mode" jdbcType="INTEGER"/>
+            <result property="grantType" column="grant_type" jdbcType="INTEGER"/>
+            <result property="grantDate" column="grant_date" jdbcType="TIMESTAMP"/>
+            <result property="extInfo" column="ext_info" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <select id="queryStrategy" resultType="com.xbw.lottery.infrastructure.po.Strategy">
+        SELECT
+            id, strategy_id, strategy_desc, strategy_mode, grant_type,
+            grant_date, ext_info , create_time, update_time
+        FROM strategy
+        WHERE strategy_id = #{strategyId}
+    </select>
+
+</mapper>
