@@ -51,7 +51,7 @@ public class Activity implements Serializable {
     /**
      * 活动状态：1编辑、2提审、3撤审、4通过、5运行(审核通过后worker扫描状态)、6拒绝、7关闭、8开启
      */
-    private Integer state;
+    private Integer activityState;
 
     /**
      * 创建人
@@ -184,15 +184,15 @@ public class Activity implements Serializable {
     /**
      * 活动状态：1编辑、2提审、3撤审、4通过、5运行(审核通过后worker扫描状态)、6拒绝、7关闭、8开启
      */
-    public Integer getState() {
-        return state;
+    public Integer getActivityState() {
+        return activityState;
     }
 
     /**
      * 活动状态：1编辑、2提审、3撤审、4通过、5运行(审核通过后worker扫描状态)、6拒绝、7关闭、8开启
      */
-    public void setState(Integer state) {
-        this.state = state;
+    public void setActivityState(Integer activityState) {
+        this.activityState = activityState;
     }
 
     /**

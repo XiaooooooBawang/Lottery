@@ -35,7 +35,7 @@ public class ApiTest {
         activity.setEndDateTime(new Date());
         activity.setStockCount(10);
         activity.setTakeCount(10);
-        activity.setState(0);
+        activity.setActivityState(0);
         activity.setCreator("xbw");
         activityDao.insert(activity);
     }
