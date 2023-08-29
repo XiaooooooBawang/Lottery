@@ -94,4 +94,61 @@ public class Constants {
             return info;
         }
     }
+
+    /**
+     * 发奖状态：0等待发奖、1发奖成功、2发奖失败
+     */
+    public enum DistributionState {
+        WAIT(0, "等待发奖"),
+        SUCCESS(1, "发奖成功"),
+        FAIL(2, "发奖失败")
+        ;
+
+        private final Integer code;
+
+        private final String info;
+
+        DistributionState(Integer code, String info) {
+            this.code = code;
+            this.info = info;
+        }
+
+        public Integer getCode() {
+            return code;
+        }
+
+        public String getInfo() {
+            return info;
+        }
+    }
+
+    /**
+     * 奖品类型（1:文字描述、2:兑换码、3:优惠券、4:实物奖品）
+     */
+    public enum AwardType {
+        DESC(1, "文字描述"),
+        REDEEM_CODE(2, "兑换码"),
+        COUPON(3, "优惠券"),
+        PHYSICAL(4, "实物奖品")
+        ;
+
+        private final Integer code;
+
+        private final String info;
+
+        AwardType(Integer code, String info) {
+            this.code = code;
+            this.info = info;
+        }
+
+        public Integer getCode() {
+            return code;
+        }
+
+        public String getInfo() {
+            return info;
+        }
+    }
+
+
 }
