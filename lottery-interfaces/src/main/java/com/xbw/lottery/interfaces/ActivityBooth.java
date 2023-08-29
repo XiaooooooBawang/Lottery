@@ -1,6 +1,6 @@
 package com.xbw.lottery.interfaces;
 
-import com.xbw.lottery.common.Constant;
+import com.xbw.lottery.common.Constants;
 import com.xbw.lottery.common.Result;
 import com.xbw.lottery.infrastructure.dao.IActivityDao;
 import com.xbw.lottery.infrastructure.po.Activity;
@@ -33,6 +33,6 @@ public class ActivityBooth implements IActivityBooth {
         activityDto.setStockCount(activity.getStockCount());
         activityDto.setTakeCount(activity.getTakeCount());
 
-        return new ActivityRes(new Result(Constant.ResponseCode.SUCCESS.getCode(), Constant.ResponseCode.SUCCESS.getInfo()), activityDto);
+        return new ActivityRes(new Result(Constants.ResponseCode.SUCCESS.getCode(), Constants.ResponseCode.SUCCESS.getInfo()), activityDto);
     }
 }

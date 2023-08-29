@@ -19,8 +19,10 @@ public class StrategyRepository implements IStrategyRepository {
     @Resource
     private IStrategyDao strategyDao;
 
+    @Resource
     private IStrategyDetailDao strategyDetailDao;
 
+    @Resource
     private IAwardDao awardDao;
 
 
@@ -35,5 +37,16 @@ public class StrategyRepository implements IStrategyRepository {
     @Override
     public Award queryAwardInfo(Long awardId) {
         return awardDao.queryAward(awardId);
+    }
+
+    @Override
+    public List<Long> queryNoStockStrategyAwardIdList(Long strategyId) {
+        return strategyDetailDao.queryNoStockStrategyAwardIdList(strategyId);
+    }
+
+    @Override
+    public boolean deductStock(Long strategyId, Long awardId) {
+        int cnt = strategyDetailDao.deductStock(strategyId, awardId);
+        return cnt == 1;
     }
 }

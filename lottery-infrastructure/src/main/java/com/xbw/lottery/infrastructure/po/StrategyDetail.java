@@ -35,6 +35,32 @@ public class StrategyDetail implements Serializable {
     private BigDecimal awardRate;
 
     /**
+     * 奖品剩余库存
+     */
+    private Integer awardSurplusCount;
+
+    /**
+     * 奖品描述
+     */
+    private String awardDesc;
+
+    public Integer getAwardSurplusCount() {
+        return awardSurplusCount;
+    }
+
+    public void setAwardSurplusCount(Integer awardSurplusCount) {
+        this.awardSurplusCount = awardSurplusCount;
+    }
+
+    public String getAwardDesc() {
+        return awardDesc;
+    }
+
+    public void setAwardDesc(String awardDesc) {
+        this.awardDesc = awardDesc;
+    }
+
+    /**
      * 创建时间
      */
     private Date createTime;

@@ -14,7 +14,7 @@
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
-    <select id="queryAward" resultType="com.xbw.lottery.infrastructure.po.Award">
+    <select id="queryAward" resultMap="AwardMap">
         SELECT
             id, award_id, award_type, award_count, award_name, award_content, create_time, update_time
         FROM award

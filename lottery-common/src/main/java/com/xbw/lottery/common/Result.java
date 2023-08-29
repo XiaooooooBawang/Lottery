@@ -7,20 +7,20 @@ import java.io.Serializable;
  */
 public class Result implements Serializable {
 
-    private String code;
+    private Integer code;
 
     private String info;
 
-    public Result(String code, String info) {
+    public Result(Integer code, String info) {
         this.code = code;
         this.info = info;
     }
 
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 

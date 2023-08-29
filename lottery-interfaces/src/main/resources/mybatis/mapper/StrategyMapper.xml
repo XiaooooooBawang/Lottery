@@ -15,7 +15,9 @@
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
-    <select id="queryStrategy" resultType="com.xbw.lottery.infrastructure.po.Strategy">
+
+    <!--注意返回对象是使用上面的resultMap-->
+    <select id="queryStrategy" parameterType="java.lang.Long" resultMap="StrategyMap">
         SELECT
             id, strategy_id, strategy_desc, strategy_mode, grant_type,
             grant_date, ext_info , create_time, update_time
