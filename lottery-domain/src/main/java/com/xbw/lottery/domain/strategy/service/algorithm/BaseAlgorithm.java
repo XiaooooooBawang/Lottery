@@ -3,6 +3,7 @@ package com.xbw.lottery.domain.strategy.service.algorithm;
 import com.xbw.lottery.domain.strategy.model.vo.AwardRateInfo;
 
 import java.math.BigDecimal;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -66,5 +67,15 @@ public abstract class BaseAlgorithm implements IDrawAlgorithm {
     protected int hashIndex(int val) {
         int hashcode = val * HASH_INCREMENT + HASH_INCREMENT;
         return hashcode & (RATE_TUPLE_LENGTH - 1);
+    }
+
+    /**
+     * 生成随机抽奖码
+     * @return
+     */
+    protected int getRandomVal(int bound) {
+        SecureRandom secureRandom = new SecureRandom();
+        int randomVal = secureRandom.nextInt(bound) + 1;
+        return randomVal;
     }
 }

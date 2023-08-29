@@ -1,5 +1,6 @@
 package com.xbw.lottery.domain.strategy.service.draw;
 
+import com.xbw.lottery.common.Constants;
 import com.xbw.lottery.domain.strategy.service.algorithm.IDrawAlgorithm;
 
 import javax.annotation.PostConstruct;
@@ -16,17 +17,17 @@ public class DrawConfig {
     @Resource(name = "singleRateRandomDrawAlgorithm")
     private IDrawAlgorithm SingleRateRandomDrawAlgorithm;
 
-    @Resource(name = "defaultRateRandomDrawAlgorithm")
-    private IDrawAlgorithm DefaultRateRandomDrawAlgorithm;
+    @Resource(name = "entiretyRateRandomDrawAlgorithm")
+    private IDrawAlgorithm EntiretyRateRandomDrawAlgorithm;
 
     // StrategyMode -> IDrawAlgorithm
-    // 使用 drawAlgorithmMap 来将不同的策略模式（用整数表示）与相应的抽奖算法关联起来
-    protected static Map<Integer, IDrawAlgorithm> drawAlgorithmMap = new ConcurrentHashMap<>();
+    // 使用 drawAlgorithmGroup 来将不同的策略模式（用整数表示）与相应的抽奖算法关联起来
+    protected static Map<Integer, IDrawAlgorithm> drawAlgorithmGroup = new ConcurrentHashMap<>();
 
     @PostConstruct
     public void init() {
-        drawAlgorithmMap.put(1, DefaultRateRandomDrawAlgorithm);
-        drawAlgorithmMap.put(2, SingleRateRandomDrawAlgorithm);
+        drawAlgorithmGroup.put(Constants.StrategyMode.ENTIRETY.getCode(), EntiretyRateRandomDrawAlgorithm);
+        drawAlgorithmGroup.put(Constants.StrategyMode.SINGLE.getCode(), SingleRateRandomDrawAlgorithm);
     }
 
 

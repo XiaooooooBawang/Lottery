@@ -17,7 +17,7 @@ public class SingleRateRandomDrawAlgorithm extends BaseAlgorithm {
         assert rateTuple != null;
 
         // 随机生成下标
-        int randomVal = new SecureRandom().nextInt(100) + 1;
+        int randomVal = this.getRandomVal(100);
         int index = super.hashIndex(randomVal);
 
         // 根据下标找到奖品id
