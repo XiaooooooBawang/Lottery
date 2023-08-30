@@ -11,7 +11,10 @@ public class Constants {
 
         ILLEGAL_PARAMETER(2, "非法参数"),
 
-        INDEX_DUP(3, "主键冲突");
+        INDEX_DUP(3, "主键冲突"),
+
+        UPDATE_FAIL(4,"数据库更新失败");
+        ;
 
 
         private final Integer code;

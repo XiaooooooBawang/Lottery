@@ -9,11 +9,13 @@
         <result property="activityId" column="activity_id" jdbcType="BIGINT"/>
         <result property="activityName" column="activity_name" jdbcType="VARCHAR"/>
         <result property="activityDesc" column="activity_desc" jdbcType="VARCHAR"/>
+        <result property="strategyId" column="strategy_id" jdbcType="BIGINT"/>
         <result property="beginDateTime" column="begin_date_time" jdbcType="TIMESTAMP"/>
         <result property="endDateTime" column="end_date_time" jdbcType="TIMESTAMP"/>
         <result property="stockCount" column="stock_count" jdbcType="INTEGER"/>
+        <result property="stockSurplusCount" column="stock_surplus_count" jdbcType="INTEGER"/>
         <result property="takeCount" column="take_count" jdbcType="INTEGER"/>
-        <result property="activityState" column="activity_state" jdbcType="TINYINT"/>
+        <result property="activityState" column="activity_state" jdbcType="INTEGER"/>
         <result property="creator" column="creator" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
@@ -22,10 +24,10 @@
     <insert id="insert" parameterType="com.xbw.lottery.infrastructure.po.Activity">
         INSERT INTO activity
         (activity_id, activity_name, activity_desc, begin_date_time, end_date_time,
-         stock_count, take_count, activity_state, creator, create_time, update_time)
+         stock_count, stock_surplus_count, take_count, strategy_id, activity_state, creator, create_time, update_time)
         VALUES
-            (#{activityId}, #{activityName}, #{activityDesc}, #{beginDateTime}, #{endDateTime},
-             #{stockCount}, #{takeCount}, #{activityState}, #{creator}, now(), now())
+            (#{activityId}, #{activityName}, #{activityDesc},#{beginDateTime}, #{endDateTime},
+             #{stockCount}, #{stockSurplusCount}, #{takeCount}, #{strategyId}, #{activityState}, #{creator}, now(), now())
     </insert>
 
     <update id="alterState" parameterType="com.xbw.lottery.domain.activity.model.vo.AlterStateVO">
@@ -36,11 +38,15 @@
 
     <select id="queryActivityById" parameterType="java.lang.Long" resultMap="activityMap">
         SELECT activity_id, activity_name, activity_desc, begin_date_time, end_date_time,
-               stock_count, take_count, activity_state, creator, create_time, update_time
+               stock_count, stock_surplus_count, take_count, strategy_id, activity_state, creator, create_time, update_time
         FROM activity
         WHERE activity_id = #{activityId}
     </select>
 
+    <update id="subtractionActivityStock" parameterType="java.lang.Long">
+        UPDATE activity SET stock_surplus_count = stock_surplus_count - 1
+        WHERE activity_id = #{activityId} AND stock_surplus_count > 0
+    </update>
 
 
 </mapper>
