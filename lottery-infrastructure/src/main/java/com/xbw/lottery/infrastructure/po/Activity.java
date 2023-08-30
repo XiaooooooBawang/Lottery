@@ -44,6 +44,16 @@ public class Activity implements Serializable {
     private Integer stockCount;
 
     /**
+     * 抽奖策略ID
+     */
+    private Long strategyId;
+
+    /**
+     * 库存剩余
+     */
+    private Integer stockSurplusCount;
+
+    /**
      * 每人可参与次数
      */
     private Integer takeCount;
@@ -237,4 +247,19 @@ public class Activity implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public Long getStrategyId() {
+        return strategyId;
+    }
+
+    public void setStrategyId(Long strategyId) {
+        this.strategyId = strategyId;
+    }
+
+    public Integer getStockSurplusCount() {
+        return stockSurplusCount;
+    }
+
+    public void setStockSurplusCount(Integer stockSurplusCount) {
+        this.stockSurplusCount = stockSurplusCount;
+    }
 }
