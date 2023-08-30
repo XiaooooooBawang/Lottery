@@ -1,12 +1,37 @@
 server:
   port: 8080
 
-spring:
-  datasource:
-    username: root
-    password: 12345678
-    url: jdbc:mysql://127.0.0.1:3306/lottery?useUnicode=true&serverTimezone=Asia/Shanghai
-    driver-class-name: com.mysql.cj.jdbc.Driver
+#spring:
+#  datasource:
+#    username: root
+#    password: 12345678
+#    url: jdbc:mysql://127.0.0.1:3306/lottery?useUnicode=true&serverTimezone=Asia/Shanghai
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# 多数据源路由配置
+mini-db-router:
+  jdbc:
+    datasource:
+      dbCount: 2
+      tbCount: 4
+      default: db00  # 默认数据库
+      routerKey: uId  # 默认routerKey
+      list: db01,db02
+      db00:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/lottery?useUnicode=true&serverTimezone=Asia/Shanghai
+        username: root
+        password: 12345678
+      db01:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/lottery_01?useUnicode=true&serverTimezone=Asia/Shanghai
+        username: root
+        password: 12345678
+      db02:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/lottery_02?useUnicode=true&serverTimezone=Asia/Shanghai
+        username: root
+        password: 12345678
 
 mybatis:
   mapper-locations: classpath:/mybatis/mapper/*.xml

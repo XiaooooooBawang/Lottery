@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xbw.lottery.infrastructure.dao.IUserStrategyExportDao">
+
+    <resultMap id="userStrategyExportMap" type="com.xbw.lottery.infrastructure.po.UserStrategyExport">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="uId" column="u_id" jdbcType="VARCHAR"/>
+        <result property="activityId" column="activity_id" jdbcType="BIGINT"/>
+        <result property="orderId" column="order_id" jdbcType="BIGINT"/>
+        <result property="strategyId" column="strategy_id" jdbcType="BIGINT"/>
+        <result property="strategyMode" column="strategy_mode" jdbcType="TINYINT"/>
+        <result property="grantType" column="grant_type" jdbcType="TINYINT"/>
+        <result property="grantDate" column="grant_date" jdbcType="TIMESTAMP"/>
+        <result property="grantState" column="grant_state" jdbcType="INTEGER"/>
+        <result property="awardId" column="award_id" jdbcType="BIGINT"/>
+        <result property="awardType" column="award_type" jdbcType="TINYINT"/>
+        <result property="awardName" column="award_name" jdbcType="VARCHAR"/>
+        <result property="awardContent" column="award_content" jdbcType="VARCHAR"/>
+        <result property="uuid" column="uuid" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <insert id="insert" parameterType="com.xbw.lottery.infrastructure.po.UserStrategyExport">
+        INSERT INTO user_strategy_export
+        (u_id, activity_id, order_id, strategy_id, strategy_mode,
+         grant_type, grant_date, grant_state, award_id, award_type,
+         award_name, award_content, uuid, create_time, update_time)
+        VALUES
+            (#{uId},#{activityId},#{orderId},#{strategyId},#{strategyMode},
+             #{grantType},#{grantDate},#{grantState},#{awardId},#{awardType},
+             #{awardName},#{awardContent},#{uuid},now(),now())
+    </insert>
+
+    <select id="queryUserStrategyExportByUId" parameterType="java.lang.String" resultMap="userStrategyExportMap">
+        SELECT id, u_id, activity_id, order_id, strategy_id, strategy_mode,
+               grant_type, grant_date, grant_state, award_id, award_type,
+               award_name, award_content, uuid, create_time, update_time
+        FROM user_strategy_export
+        WHERE u_id = #{uId}
+    </select>
+
+
+</mapper>
