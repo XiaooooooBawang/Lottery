@@ -198,4 +198,18 @@ public class Constants {
     }
 
 
+    /**
+     * Ids 生成策略枚举
+     */
+    public enum Ids {
+        /** 雪花算法 */
+        SNOWFLAKE,
+
+        /** 日期算法 */
+        SHORT_CODE,
+
+        /** 随机算法 */
+        RANDOM_NUMERIC
+    }
+
 }
