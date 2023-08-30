@@ -1,5 +1,6 @@
 package com.xbw.lottery.test.domain;
 
+import com.xbw.lottery.common.Constants;
 import com.xbw.lottery.domain.strategy.model.vo.AwardRateInfo;
 import com.xbw.lottery.domain.strategy.service.algorithm.IDrawAlgorithm;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +36,7 @@ public class DrawAlgorithmTest {
         strategyList.add(new AwardRateInfo(1005L, new BigDecimal("0.35")));
 
         // 初始数据
-        randomDrawAlgorithm.initRateTuple(100001L, strategyList);
+        randomDrawAlgorithm.initRateTuple(100001L, Constants.StrategyMode.SINGLE.getCode(), strategyList);
     }
 
     @Test
