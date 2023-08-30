@@ -1,8 +1,9 @@
 package com.xbw.lottery.domain.strategy.service.draw;
 
 import com.xbw.lottery.domain.strategy.model.aggregate.StrategyRich;
-import com.xbw.lottery.domain.strategy.repository.impl.StrategyRepository;
-import com.xbw.lottery.infrastructure.po.Award;
+import com.xbw.lottery.domain.strategy.model.vo.AwardBriefVO;
+import com.xbw.lottery.domain.strategy.repository.IStrategyRepository;
+
 
 import javax.annotation.Resource;
 
@@ -13,7 +14,7 @@ import javax.annotation.Resource;
 public class DrawStrategySupport extends DrawConfig{
 
     @Resource
-    protected StrategyRepository strategyRepository;
+    protected IStrategyRepository strategyRepository;
 
     /**
      * 查询策略配置信息
@@ -31,7 +32,7 @@ public class DrawStrategySupport extends DrawConfig{
      * @param awardId 奖品ID
      * @return 中奖详情
      */
-    protected Award queryAwardInfoByAwardId(Long awardId) {
+    protected AwardBriefVO queryAwardInfoByAwardId(Long awardId) {
         return strategyRepository.queryAwardInfo(awardId);
     }
 }
