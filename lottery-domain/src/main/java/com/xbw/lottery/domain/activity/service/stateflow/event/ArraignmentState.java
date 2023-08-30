@@ -38,8 +38,7 @@ public class ArraignmentState extends AbstractState {
 
     @Override
     public Result close(Long activityId, Enum<Constants.ActivityState> currentStatus) {
-        boolean changeSuccess = activityRepository.alterState(activityId, currentStatus, Constants.ActivityState.CLOSE);
-        return changeSuccess ? Result.buildSuccessResult("活动审核关闭") : Result.buildErrorResult("活动状态变更失败");
+        return Result.buildErrorResult("非关闭活动不可开启");
     }
 
     @Override
