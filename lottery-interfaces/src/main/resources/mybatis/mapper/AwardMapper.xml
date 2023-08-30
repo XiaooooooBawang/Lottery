@@ -14,9 +14,26 @@
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
-    <select id="queryAward" resultMap="AwardMap">
+
+
+    <insert id="insertAwardList" parameterType="java.util.List">
+        INSERT INTO award(award_id, award_type, award_name, award_content, create_time, update_time)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.awardId},
+            #{item.awardType},
+            #{item.awardName},
+            #{item.awardContent},
+            NOW(),
+            NOW()
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryAwardInfo" resultMap="AwardMap">
         SELECT
-            id, award_id, award_type, award_count, award_name, award_content, create_time, update_time
+            id, award_id, award_type, award_count, award_name, award_content
         FROM award
         WHERE award_id = #{awardId}
     </select>

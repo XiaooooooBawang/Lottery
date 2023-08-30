@@ -15,7 +15,7 @@ public class GoodsReq {
     private String orderId;
 
     /** 奖品ID */
-    private String awardId;
+    private Long awardId;
 
     /**
      * 奖品名称
@@ -36,7 +36,7 @@ public class GoodsReq {
     public GoodsReq() {
     }
 
-    public GoodsReq(String uId, String orderId, String awardId, String awardName, String awardContent) {
+    public GoodsReq(String uId, String orderId, Long awardId, String awardName, String awardContent) {
         this.uId = uId;
         this.orderId = orderId;
         this.awardId = awardId;
@@ -44,7 +44,7 @@ public class GoodsReq {
         this.awardContent = awardContent;
     }
 
-    public GoodsReq(String uId, String orderId, String awardId, String awardName,
+    public GoodsReq(String uId, String orderId, Long awardId, String awardName,
                     String awardContent, ShippingAddress shippingAddress) {
         this.uId = uId;
         this.orderId = orderId;
@@ -70,11 +70,11 @@ public class GoodsReq {
         this.orderId = orderId;
     }
 
-    public String getAwardId() {
+    public Long getAwardId() {
         return awardId;
     }
 
-    public void setAwardId(String awardId) {
+    public void setAwardId(Long awardId) {
         this.awardId = awardId;
     }
 

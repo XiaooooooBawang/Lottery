@@ -20,7 +20,7 @@ public class CouponGoods extends DistributionBase implements IDistributionGoods 
     public DistributionRes doDistribution(GoodsReq goodsReq) {
         String uid = goodsReq.getuId();
         String orderId = goodsReq.getOrderId();
-        String awardId = goodsReq.getAwardId();
+        Long awardId = goodsReq.getAwardId();
 
         log.info("模拟调用优惠券发放接口 userId：{} awardContent：{}", uid, goodsReq.getAwardContent());
 

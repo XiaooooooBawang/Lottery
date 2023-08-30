@@ -20,7 +20,7 @@ public class RedeemCodeGoods extends DistributionBase implements IDistributionGo
     public DistributionRes doDistribution(GoodsReq goodsReq) {
         String uid = goodsReq.getuId();
         String orderId = goodsReq.getOrderId();
-        String awardId = goodsReq.getAwardId();
+        Long awardId = goodsReq.getAwardId();
 
         log.info("模拟调用兑换码 userId：{} awardContent：{}", uid, goodsReq.getAwardContent());
 

@@ -20,7 +20,7 @@ public class DescGoods extends DistributionBase implements IDistributionGoods {
     public DistributionRes doDistribution(GoodsReq goodsReq) {
         String uid = goodsReq.getuId();
         String orderId = goodsReq.getOrderId();
-        String awardId = goodsReq.getAwardId();
+        Long awardId = goodsReq.getAwardId();
 
         log.info("返回文字中奖信息 userId：{}", uid);
 
