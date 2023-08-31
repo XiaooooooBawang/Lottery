@@ -33,7 +33,7 @@ public class UserTakeActivityRepository implements IUserTakeActivityRepository {
 
 
     @Override
-    public int subtractionLeftCount(Long activityId, String activityName, Integer takeCount, Integer userTakeLeftCount, String uId, Date partakeDate) {
+    public int subtractionLeftCount(Long activityId, String activityName, Integer takeCount, Integer userTakeLeftCount, String uId) {
         // 第一次领取活动，没有这个记录，所以直接insert。后面再来就update
         if (null == userTakeLeftCount) {
             UserTakeActivityCount userTakeActivityCount = new UserTakeActivityCount();

@@ -9,6 +9,7 @@ import com.xbw.lottery.domain.activity.model.req.PartakeReq;
 import com.xbw.lottery.domain.activity.model.res.PartakeResult;
 import com.xbw.lottery.domain.activity.model.vo.DrawOrderVO;
 import com.xbw.lottery.domain.activity.service.partake.IActivityPartake;
+import com.xbw.lottery.domain.rule.service.engine.EngineFilter;
 import com.xbw.lottery.domain.strategy.model.req.DrawReq;
 import com.xbw.lottery.domain.strategy.model.res.DrawResult;
 import com.xbw.lottery.domain.strategy.model.vo.DrawAwardVO;
@@ -31,6 +32,10 @@ public class ActivityProcessImpl implements IActivityProcess {
     @Resource
     private Map<Constants.Ids, IIdGenerator> idGeneratorMap;
 
+    @Resource
+    private EngineFilter engineFilter;
+
+
     @Override
     public DrawProcessResult doDrawProcess(DrawProcessReq req) {
         // 1. 领取活动
@@ -43,7 +48,7 @@ public class ActivityProcessImpl implements IActivityProcess {
         Long takeId = partakeResult.getTakeId();
 
         // 2. 执行抽奖
-        DrawResult drawResult = drawExec.doDrawExec(new DrawReq(req.getuId(), strategyId, String.valueOf(takeId)));
+        DrawResult drawResult = drawExec.doDrawExec(new DrawReq(req.getuId(), strategyId));
         if (Constants.DrawState.FAIL.getCode().equals(drawResult.getDrawState())) {
             return new DrawProcessResult(Constants.ResponseCode.LOSING_DRAW.getCode(), Constants.ResponseCode.LOSING_DRAW.getInfo());
         }

@@ -18,10 +18,9 @@ public interface IUserTakeActivityRepository {
      * @param takeCount         活动个人可领取次数
      * @param userTakeLeftCount 活动个人剩余领取次数
      * @param uId               用户ID
-     * @param partakeDate       领取时间
-     * @return                  更新结果
+     * @return 更新结果
      */
-    int subtractionLeftCount(Long activityId, String activityName, Integer takeCount, Integer userTakeLeftCount, String uId, Date partakeDate);
+    int subtractionLeftCount(Long activityId, String activityName, Integer takeCount, Integer userTakeLeftCount, String uId);
 
     /**
      * 领取活动
