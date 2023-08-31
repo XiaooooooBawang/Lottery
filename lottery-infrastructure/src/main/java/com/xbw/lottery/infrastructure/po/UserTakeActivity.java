@@ -40,6 +40,16 @@ public class UserTakeActivity implements Serializable {
     private Date takeDate;
 
     /**
+     * 抽奖策略ID
+     */
+    private Long strategyId;
+
+    /**
+     * 活动单使用状态 0未使用、1已使用
+     */
+    private Integer useState;
+
+    /**
      * 领取次数
      */
     private Integer takeCount;
@@ -198,5 +208,22 @@ public class UserTakeActivity implements Serializable {
      */
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+
+    public Long getStrategyId() {
+        return strategyId;
+    }
+
+    public void setStrategyId(Long strategyId) {
+        this.strategyId = strategyId;
+    }
+
+    public Integer getUseState() {
+        return useState;
+    }
+
+    public void setUseState(Integer useState) {
+        this.useState = useState;
     }
 }
