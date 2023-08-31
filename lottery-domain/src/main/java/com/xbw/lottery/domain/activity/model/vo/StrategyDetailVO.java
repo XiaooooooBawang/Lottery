@@ -15,7 +15,7 @@ public class StrategyDetailVO {
     /**
      * 奖品ID
      */
-    private String awardId;
+    private Long awardId;
 
     /**
      * 奖品名称
@@ -45,11 +45,11 @@ public class StrategyDetailVO {
         this.strategyId = strategyId;
     }
 
-    public String getAwardId() {
+    public Long getAwardId() {
         return awardId;
     }
 
-    public void setAwardId(String awardId) {
+    public void setAwardId(Long awardId) {
         this.awardId = awardId;
     }
 

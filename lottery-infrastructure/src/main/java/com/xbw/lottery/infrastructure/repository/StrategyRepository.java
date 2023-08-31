@@ -1,6 +1,7 @@
 package com.xbw.lottery.infrastructure.repository;
 
 import com.xbw.lottery.domain.strategy.model.aggregate.StrategyRich;
+import com.xbw.lottery.domain.strategy.model.vo.AwardBriefVO;
 import com.xbw.lottery.domain.strategy.model.vo.StrategyBriefVO;
 import com.xbw.lottery.domain.strategy.model.vo.StrategyDetailBriefVO;
 import com.xbw.lottery.domain.strategy.repository.IStrategyRepository;
@@ -11,14 +12,13 @@ import com.xbw.lottery.infrastructure.po.Award;
 import com.xbw.lottery.infrastructure.po.Strategy;
 import com.xbw.lottery.infrastructure.po.StrategyDetail;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Component;
-import com.xbw.lottery.domain.strategy.model.vo.AwardBriefVO;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Repository
 public class StrategyRepository implements IStrategyRepository {
 
     @Resource

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xbw.lottery.infrastructure.dao.RuleTreeNodeDao">
+
+    <resultMap id="ruleTreeNodeMap" type="com.xbw.lottery.infrastructure.po.RuleTreeNode">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="treeId" column="tree_id" jdbcType="INTEGER"/>
+            <result property="nodeType" column="node_type" jdbcType="INTEGER"/>
+            <result property="nodeValue" column="node_value" jdbcType="VARCHAR"/>
+            <result property="ruleKey" column="rule_key" jdbcType="VARCHAR"/>
+            <result property="ruleDesc" column="rule_desc" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryRuleTreeNodeList" resultMap="ruleTreeNodeMap">
+        SELECT id, tree_id, node_type, node_value, rule_key, rule_desc
+        FROM rule_tree_node
+        where tree_id = #{treeId}
+    </select>
+
+    <select id="queryTreeNodeCount" resultType="java.lang.Integer">
+        select count(id) from rule_tree_node where tree_id = #{treeId}
+    </select>
+
+    <select id="queryTreeRulePoint" resultMap="ruleTreeNodeMap">
+        SELECT distinct (rule_key), rule_desc
+        FROM rule_tree_node
+        where tree_id = #{treeId} and rule_key is not null
+    </select>
+</mapper>

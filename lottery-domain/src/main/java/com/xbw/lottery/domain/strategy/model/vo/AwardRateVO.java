@@ -6,15 +6,15 @@ import java.math.BigDecimal;
  * 奖品抽奖概率信息，包括奖品id、概率
  *
  */
-public class AwardRateInfo {
+public class AwardRateVO {
     private Long awardId;
 
     private BigDecimal awardRate;
 
-    public AwardRateInfo() {
+    public AwardRateVO() {
     }
 
-    public AwardRateInfo(Long awardId, BigDecimal awardRate) {
+    public AwardRateVO(Long awardId, BigDecimal awardRate) {
         this.awardId = awardId;
         this.awardRate = awardRate;
     }

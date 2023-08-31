@@ -11,7 +11,7 @@ import com.xbw.lottery.infrastructure.dao.IUserTakeActivityDao;
 import com.xbw.lottery.infrastructure.po.UserStrategyExport;
 import com.xbw.lottery.infrastructure.po.UserTakeActivity;
 import com.xbw.lottery.infrastructure.po.UserTakeActivityCount;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -19,7 +19,7 @@ import java.util.Date;
 /**
  * 用户参与活动仓储
  */
-@Component
+@Repository
 public class UserTakeActivityRepository implements IUserTakeActivityRepository {
 
     @Resource

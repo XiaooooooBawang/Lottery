@@ -49,7 +49,7 @@ public class ActivityTest {
     private IActivityPartake activityPartake;
 
     /**
-     * TODO：后面编写ID生成策略
+     * 实际业务使用 Map<Constants.Ids, IIdGenerator> ID生成策略
      */
     private Long activityId = 120981321L;
 
@@ -79,7 +79,7 @@ public class ActivityTest {
 
         StrategyDetailVO strategyDetail_01 = new StrategyDetailVO();
         strategyDetail_01.setStrategyId(strategy.getStrategyId());
-        strategyDetail_01.setAwardId("101");
+        strategyDetail_01.setAwardId(101L);
         strategyDetail_01.setAwardName("一等奖");
         strategyDetail_01.setAwardCount(10);
         strategyDetail_01.setAwardSurplusCount(10);
@@ -87,7 +87,7 @@ public class ActivityTest {
 
         StrategyDetailVO strategyDetail_02 = new StrategyDetailVO();
         strategyDetail_02.setStrategyId(strategy.getStrategyId());
-        strategyDetail_02.setAwardId("102");
+        strategyDetail_02.setAwardId(102L);
         strategyDetail_02.setAwardName("二等奖");
         strategyDetail_02.setAwardCount(20);
         strategyDetail_02.setAwardSurplusCount(20);
@@ -95,7 +95,7 @@ public class ActivityTest {
 
         StrategyDetailVO strategyDetail_03 = new StrategyDetailVO();
         strategyDetail_03.setStrategyId(strategy.getStrategyId());
-        strategyDetail_03.setAwardId("103");
+        strategyDetail_03.setAwardId(103L);
         strategyDetail_03.setAwardName("三等奖");
         strategyDetail_03.setAwardCount(50);
         strategyDetail_03.setAwardSurplusCount(50);
@@ -103,7 +103,7 @@ public class ActivityTest {
 
         StrategyDetailVO strategyDetail_04 = new StrategyDetailVO();
         strategyDetail_04.setStrategyId(strategy.getStrategyId());
-        strategyDetail_04.setAwardId("104");
+        strategyDetail_04.setAwardId(104L);
         strategyDetail_04.setAwardName("四等奖");
         strategyDetail_04.setAwardCount(100);
         strategyDetail_04.setAwardSurplusCount(100);
@@ -111,7 +111,7 @@ public class ActivityTest {
 
         StrategyDetailVO strategyDetail_05 = new StrategyDetailVO();
         strategyDetail_05.setStrategyId(strategy.getStrategyId());
-        strategyDetail_05.setAwardId("104");
+        strategyDetail_05.setAwardId(104L);
         strategyDetail_05.setAwardName("五等奖");
         strategyDetail_05.setAwardCount(500);
         strategyDetail_05.setAwardSurplusCount(500);

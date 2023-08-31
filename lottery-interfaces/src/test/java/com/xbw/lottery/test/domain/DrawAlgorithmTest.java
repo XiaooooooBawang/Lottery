@@ -1,7 +1,7 @@
 package com.xbw.lottery.test.domain;
 
 import com.xbw.lottery.common.Constants;
-import com.xbw.lottery.domain.strategy.model.vo.AwardRateInfo;
+import com.xbw.lottery.domain.strategy.model.vo.AwardRateVO;
 import com.xbw.lottery.domain.strategy.service.algorithm.IDrawAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -28,12 +28,12 @@ public class DrawAlgorithmTest {
     @Before
     public void init() {
         // 奖品信息
-        List<AwardRateInfo> strategyList = new ArrayList<>();
-        strategyList.add(new AwardRateInfo(1001L, new BigDecimal("0.05")));
-        strategyList.add(new AwardRateInfo(1002L, new BigDecimal("0.15")));
-        strategyList.add(new AwardRateInfo(1003L, new BigDecimal("0.20")));
-        strategyList.add(new AwardRateInfo(1004L, new BigDecimal("0.25")));
-        strategyList.add(new AwardRateInfo(1005L, new BigDecimal("0.35")));
+        List<AwardRateVO> strategyList = new ArrayList<>();
+        strategyList.add(new AwardRateVO(1001L, new BigDecimal("0.05")));
+        strategyList.add(new AwardRateVO(1002L, new BigDecimal("0.15")));
+        strategyList.add(new AwardRateVO(1003L, new BigDecimal("0.20")));
+        strategyList.add(new AwardRateVO(1004L, new BigDecimal("0.25")));
+        strategyList.add(new AwardRateVO(1005L, new BigDecimal("0.35")));
 
         // 初始数据
         randomDrawAlgorithm.initRateTuple(100001L, Constants.StrategyMode.SINGLE.getCode(), strategyList);

@@ -1,7 +1,7 @@
 package com.xbw.lottery.domain.strategy.service.algorithm;
 
 import com.xbw.lottery.common.Constants;
-import com.xbw.lottery.domain.strategy.model.vo.AwardRateInfo;
+import com.xbw.lottery.domain.strategy.model.vo.AwardRateVO;
 
 import java.math.BigDecimal;
 import java.security.SecureRandom;
@@ -25,15 +25,15 @@ public abstract class BaseAlgorithm implements IDrawAlgorithm {
     protected Map<Long, Long[]> rateTupleMap = new ConcurrentHashMap<>();
 
     // 奖品区间概率值，strategyId -> [awardId->begin、awardId->end]
-    protected Map<Long, List<AwardRateInfo>> awardRateInfoMap = new ConcurrentHashMap<>();
+    protected Map<Long, List<AwardRateVO>> awardRateInfoMap = new ConcurrentHashMap<>();
 
     /**
      * 初始化概率数组，往里面填方奖品id
      * @param strategyId 抽奖策略id
-     * @param awardRateInfoList 奖品概率配置信息列表
+     * @param awardRateVOList 奖品概率配置信息列表
      */
     @Override
-    public synchronized void initRateTuple(Long strategyId, Integer strategyMode, List<AwardRateInfo> awardRateInfoList) {
+    public synchronized void initRateTuple(Long strategyId, Integer strategyMode, List<AwardRateVO> awardRateVOList) {
 
         // 前置判断
         if (isExist(strategyId)){
@@ -41,7 +41,7 @@ public abstract class BaseAlgorithm implements IDrawAlgorithm {
         }
 
         // 保存奖品概率信息
-        awardRateInfoMap.put(strategyId, awardRateInfoList);
+        awardRateInfoMap.put(strategyId, awardRateVOList);
 
         // 非单项概率，不必存入缓存，因为这部分抽奖算法需要实时处理中奖概率。
         if (!Constants.StrategyMode.SINGLE.getCode().equals(strategyMode)) {
@@ -56,12 +56,12 @@ public abstract class BaseAlgorithm implements IDrawAlgorithm {
         Long[] rateTuple = rateTupleMap.computeIfAbsent(strategyId, k -> new Long[RATE_TUPLE_LENGTH]);
 
         int cursorVal = 0;
-        for (AwardRateInfo awardRateInfo : awardRateInfoList) {
-            int rateVal = awardRateInfo.getAwardRate().multiply(new BigDecimal(100)).intValue();
+        for (AwardRateVO awardRateVO : awardRateVOList) {
+            int rateVal = awardRateVO.getAwardRate().multiply(new BigDecimal(100)).intValue();
 
             // 往概率数组中填充奖品id
             for (int i = cursorVal + 1; i <= (cursorVal + rateVal); i++) {
-                rateTuple[hashIndex(i)] = awardRateInfo.getAwardId();
+                rateTuple[hashIndex(i)] = awardRateVO.getAwardId();
             }
 
             cursorVal += rateVal;
