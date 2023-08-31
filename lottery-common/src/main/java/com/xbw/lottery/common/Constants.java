@@ -15,7 +15,9 @@ public class Constants {
 
         UPDATE_FAIL(4,"数据库更新失败"),
 
-        LOSING_DRAW(5, "未中奖");
+        LOSING_DRAW(5, "未中奖"),
+
+        RULE_ERR(6, "量化人群规则执行失败")
         ;
 
 
