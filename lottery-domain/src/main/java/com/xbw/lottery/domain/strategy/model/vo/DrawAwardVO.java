@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * 中奖奖品信息
  */
-public class DrawAwardInfo {
+public class DrawAwardVO {
 
     /**
      * 奖品ID
@@ -40,10 +40,10 @@ public class DrawAwardInfo {
      * 发奖时间
      */
     private Date grantDate;
-    public DrawAwardInfo() {
+    public DrawAwardVO() {
     }
 
-    public DrawAwardInfo(Long awardId, Integer awardType, String awardName,String awardContent) {
+    public DrawAwardVO(Long awardId, Integer awardType, String awardName, String awardContent) {
         this.awardId = awardId;
         this.awardType = awardType;
         this.awardName = awardName;
