@@ -113,19 +113,5 @@ public class ActivityBillVO {
         this.userTakeLeftCount = userTakeLeftCount;
     }
 
-    @Override
-    public String toString() {
-        return "ActivityBillVO{" +
-                "uId='" + uId + '\'' +
-                ", activityId=" + activityId +
-                ", activityName='" + activityName + '\'' +
-                ", beginDateTime=" + beginDateTime +
-                ", endDateTime=" + endDateTime +
-                ", stockSurplusCount=" + stockSurplusCount +
-                ", activityState=" + activityState +
-                ", takeCount=" + takeCount +
-                ", userTakeLeftCount=" + userTakeLeftCount +
-                '}';
-    }
 
 }

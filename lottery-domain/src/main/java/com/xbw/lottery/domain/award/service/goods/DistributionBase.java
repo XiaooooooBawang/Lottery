@@ -1,6 +1,6 @@
 package com.xbw.lottery.domain.award.service.goods;
 
-import com.xbw.lottery.domain.award.repository.IAwardRepository;
+import com.xbw.lottery.domain.award.repository.IOrderRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.Resource;
@@ -13,7 +13,7 @@ public class DistributionBase {
 
 
     @Resource
-    private IAwardRepository awardRepository;
+    private IOrderRepository awardRepository;
 
     protected void updateUserAwardDistributionState(String uId, String orderId, Long awardId,
                                                     Integer distributionState, String distributionStateInfo) {

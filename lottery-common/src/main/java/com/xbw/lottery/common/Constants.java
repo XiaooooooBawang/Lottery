@@ -13,7 +13,9 @@ public class Constants {
 
         INDEX_DUP(3, "主键冲突"),
 
-        UPDATE_FAIL(4,"数据库更新失败");
+        UPDATE_FAIL(4,"数据库更新失败"),
+
+        LOSING_DRAW(5, "未中奖");
         ;
 
 
@@ -215,4 +217,70 @@ public class Constants {
         RANDOM_NUMERIC
     }
 
+    /**
+     * 活动单使用状态 0未使用、1已使用
+     */
+    public enum TaskState {
+
+        NO_USED(0, "未使用"),
+        USED(1, "已使用");
+
+        private Integer code;
+        private String info;
+
+        TaskState(Integer code, String info) {
+            this.code = code;
+            this.info = info;
+        }
+
+        public Integer getCode() {
+            return code;
+        }
+
+        public void setCode(Integer code) {
+            this.code = code;
+        }
+
+        public String getInfo() {
+            return info;
+        }
+
+        public void setInfo(String info) {
+            this.info = info;
+        }
+    }
+
+    /**
+     * 发奖状态 0初始、1完成、2失败
+     */
+    public enum GrantState{
+
+        INIT(0, "初始"),
+        COMPLETE(1, "完成"),
+        FAIL(2, "失败");
+
+        private Integer code;
+        private String info;
+
+        GrantState(Integer code, String info) {
+            this.code = code;
+            this.info = info;
+        }
+
+        public Integer getCode() {
+            return code;
+        }
+
+        public void setCode(Integer code) {
+            this.code = code;
+        }
+
+        public String getInfo() {
+            return info;
+        }
+
+        public void setInfo(String info) {
+            this.info = info;
+        }
+    }
 }

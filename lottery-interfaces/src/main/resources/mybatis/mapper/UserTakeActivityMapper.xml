@@ -12,6 +12,8 @@
         <result property="activityName" column="activity_name" jdbcType="VARCHAR"/>
         <result property="takeDate" column="take_date" jdbcType="TIMESTAMP"/>
         <result property="takeCount" column="take_count" jdbcType="INTEGER"/>
+        <result property="strategyId" column="strategy_id" jdbcType="BIGINT"/>
+        <result property="useState" column="use_state" jdbcType="INTEGER"/>
         <result property="uuid" column="uuid" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
@@ -20,11 +22,23 @@
     <insert id="insert" parameterType="com.xbw.lottery.infrastructure.po.UserTakeActivity">
             INSERT INTO user_take_activity
             (u_id, take_id, activity_id, activity_name, take_date,
-             take_count, uuid, create_time, update_time)
+             take_count, strategy_id, use_state, uuid, create_time, update_time)
             VALUES
             (#{uId}, #{takeId}, #{activityId}, #{activityName}, #{takeDate},
-             #{takeCount}, #{uuid}, now(), now())
+             #{takeCount}, #{strategyId}, #{useState}, #{uuid}, now(), now())
     </insert>
 
+    <update id="lockTackActivity" parameterType="com.xbw.lottery.infrastructure.po.UserTakeActivity">
+        UPDATE user_take_activity SET use_state = 1
+        WHERE u_id = #{uId} AND activity_id = #{activityId} AND use_state = 0
+    </update>
+
+    <select id="queryNoConsumedTakeActivityOrder" parameterType="com.xbw.lottery.infrastructure.po.UserTakeActivity" resultMap="userTakeActivityMap">
+        SELECT activity_id, take_id, strategy_id, use_state
+        FROM user_take_activity
+        WHERE u_id = #{uId} AND activity_id = #{activityId} AND use_state = 0
+        ORDER BY id DESC
+            LIMIT 1
+    </select>
 
 </mapper>

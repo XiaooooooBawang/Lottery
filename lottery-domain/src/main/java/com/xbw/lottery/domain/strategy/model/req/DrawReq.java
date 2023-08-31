@@ -7,25 +7,37 @@ package com.xbw.lottery.domain.strategy.model.req;
 public class DrawReq {
 
     // 用户Id
-    private String userId;
+    private String uId;
 
     // 策略Id
     private Long strategyId;
 
+    /**
+     * 防重ID
+     */
+    private String uuid;
+
+
     public DrawReq() {
     }
 
-    public DrawReq(String userId, Long strategyId) {
-        this.userId = userId;
+    public DrawReq(String uId, Long strategyId) {
+        this.uId = uId;
         this.strategyId = strategyId;
     }
 
-    public String getUserId() {
-        return userId;
+    public DrawReq(String uId, Long strategyId, String uuid) {
+        this.uId = uId;
+        this.strategyId = strategyId;
+        this.uuid = uuid;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public String getuId() {
+        return uId;
+    }
+
+    public void setuId(String uId) {
+        this.uId = uId;
     }
 
     public Long getStrategyId() {
