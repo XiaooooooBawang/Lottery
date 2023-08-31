@@ -9,7 +9,6 @@ import com.xbw.lottery.domain.activity.model.req.PartakeReq;
 import com.xbw.lottery.domain.activity.model.res.PartakeResult;
 import com.xbw.lottery.domain.activity.model.vo.DrawOrderVO;
 import com.xbw.lottery.domain.activity.service.partake.IActivityPartake;
-import com.xbw.lottery.domain.rule.service.engine.EngineFilter;
 import com.xbw.lottery.domain.strategy.model.req.DrawReq;
 import com.xbw.lottery.domain.strategy.model.res.DrawResult;
 import com.xbw.lottery.domain.strategy.model.vo.DrawAwardVO;
@@ -31,9 +30,6 @@ public class ActivityProcessImpl implements IActivityProcess {
 
     @Resource
     private Map<Constants.Ids, IIdGenerator> idGeneratorMap;
-
-    @Resource
-    private EngineFilter engineFilter;
 
 
     @Override
