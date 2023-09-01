@@ -107,4 +107,14 @@ public class UserTakeActivityRepository implements IUserTakeActivityRepository {
     public UserTakeActivityVO queryNoConsumedTakeActivityOrder(Long activityId, String uId) {
         return null;
     }
+
+    @Override
+    public void updateInvoiceMqState(String uId, Long orderId, Integer mqState) {
+        UserStrategyExport userStrategyExport = new UserStrategyExport();
+        userStrategyExport.setuId(uId);
+        userStrategyExport.setOrderId(orderId);
+        userStrategyExport.setMqState(mqState);
+        userStrategyExportDao.updateInvoiceMqState(userStrategyExport);
+    }
+
 }
