@@ -3,6 +3,7 @@ package com.xbw.lottery.domain.activity.service.deploy.impl;
 import com.google.gson.Gson;
 import com.xbw.lottery.domain.activity.model.aggregates.ActivityConfigRich;
 import com.xbw.lottery.domain.activity.model.req.ActivityConfigReq;
+import com.xbw.lottery.domain.activity.model.vo.ActivityVO;
 import com.xbw.lottery.domain.activity.repository.IActivityRepository;
 import com.xbw.lottery.domain.activity.service.deploy.IActivityDeploy;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 @Service
@@ -54,5 +56,10 @@ public class ActivityDeployImpl implements IActivityDeploy {
     @Override
     public void updateActivity(ActivityConfigReq req) {
         // TODO: 非核心功能后续补充
+    }
+
+    @Override
+    public List<ActivityVO> scanToDoActivityList(Long id) {
+        return activityRepository.scanToDoActivityList(id);
     }
 }

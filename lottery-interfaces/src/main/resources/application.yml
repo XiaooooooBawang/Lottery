@@ -33,6 +33,26 @@ mini-db-router:
         username: root
         password: 12345678
 
+
+# xxl-job
+# 官网：https://github.com/xuxueli/xxl-job/
+# 地址：http://localhost:9990/xxl-job-admin 【需要先启动 xxl-job】
+# 账号：admin
+# 密码：123456
+xxl:
+  job:
+    admin:
+      addresses: http://127.0.0.1:9990/xxl-job-admin
+    executor:
+      address:
+      appname: lottery-job
+      ip:
+      port: 9998
+      logpath: ./data/applogs/xxl-job/jobhandler
+      logretentiondays: 50
+    accessToken: default_token
+
+
 mybatis:
   mapper-locations: classpath:/mybatis/mapper/*.xml
   config-location:  classpath:/mybatis/config/mybatis-config.xml

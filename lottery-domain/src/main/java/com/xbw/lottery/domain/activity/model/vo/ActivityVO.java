@@ -8,6 +8,12 @@ import java.util.Date;
 public class ActivityVO {
 
     /**
+     * 自增ID
+     */
+    private Long id;
+
+
+    /**
      * 活动ID
      */
     private Long activityId;
@@ -51,6 +57,15 @@ public class ActivityVO {
      * 创建人
      */
     private String creator;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getActivityId() {
         return activityId;

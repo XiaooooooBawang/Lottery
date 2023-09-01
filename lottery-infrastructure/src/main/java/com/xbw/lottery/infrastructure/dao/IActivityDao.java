@@ -4,6 +4,8 @@ import com.xbw.lottery.domain.activity.model.vo.AlterStateVO;
 import com.xbw.lottery.infrastructure.po.Activity;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface IActivityDao {
     void insert(Activity activity);
@@ -24,4 +26,12 @@ public interface IActivityDao {
      * @return 更新数量
      */
     int subtractionActivityStock(Long activityId);
+
+    /**
+     * 扫描待处理的活动列表，状态为：通过、活动中
+     *
+     * @param id ID 从给定id往后扫描
+     * @return 待处理的活动集合.
+     */
+    List<Activity> scanToDoActivityList(Long id);
 }
