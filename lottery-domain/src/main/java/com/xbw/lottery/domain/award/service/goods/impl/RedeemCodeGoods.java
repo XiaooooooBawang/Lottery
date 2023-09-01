@@ -19,23 +19,15 @@ public class RedeemCodeGoods extends DistributionBase implements IDistributionGo
     @Override
     public DistributionRes doDistribution(GoodsReq goodsReq) {
         String uid = goodsReq.getuId();
-        String orderId = goodsReq.getOrderId();
+        Long orderId = goodsReq.getOrderId();
         Long awardId = goodsReq.getAwardId();
 
         log.info("模拟调用兑换码 userId：{} awardContent：{}", uid, goodsReq.getAwardContent());
 
-        Integer code = Constants.DistributionState.SUCCESS.getCode();
-        String info = Constants.DistributionState.SUCCESS.getInfo();
-
         // 更新用户领奖结果
-        super.updateUserAwardDistributionState(uid, orderId, awardId, code, info);
+        super.updateUserAwardGrantState(uid, orderId, awardId, Constants.GrantState.COMPLETE.getCode());
 
         // 返回发奖结果
-        return new DistributionRes(uid, code, info);
+        return new DistributionRes(uid, Constants.AwardState.SUCCESS.getCode(), Constants.AwardState.SUCCESS.getInfo());
     }
-
-    public Integer getAwardTypeCode() {
-        return Constants.AwardType.REDEEM_CODE.getCode();
-    }
-
 }

@@ -142,7 +142,7 @@ public class Constants {
     /**
      * 发奖状态：0等待发奖、1发奖成功、2发奖失败
      */
-    public enum DistributionState {
+    public enum AwardState {
         WAIT(0, "等待发奖"),
         SUCCESS(1, "发奖成功"),
         FAIL(2, "发奖失败")
@@ -152,7 +152,7 @@ public class Constants {
 
         private final String info;
 
-        DistributionState(Integer code, String info) {
+        AwardState(Integer code, String info) {
             this.code = code;
             this.info = info;
         }
@@ -302,6 +302,40 @@ public class Constants {
         private String info;
 
         GrantState(Integer code, String info) {
+            this.code = code;
+            this.info = info;
+        }
+
+        public Integer getCode() {
+            return code;
+        }
+
+        public void setCode(Integer code) {
+            this.code = code;
+        }
+
+        public String getInfo() {
+            return info;
+        }
+
+        public void setInfo(String info) {
+            this.info = info;
+        }
+    }
+
+
+    /**
+     * 消息发送状态（0未发送、1发送成功、2发送失败）
+     */
+    public enum MQState {
+        INIT(0, "初始"),
+        COMPLETE(1, "完成"),
+        FAIL(2, "失败");
+
+        private Integer code;
+        private String info;
+
+        MQState(Integer code, String info) {
             this.code = code;
             this.info = info;
         }

@@ -15,10 +15,9 @@ public class DistributionBase {
     @Resource
     private IOrderRepository awardRepository;
 
-    protected void updateUserAwardDistributionState(String uId, String orderId, Long awardId,
-                                                    Integer distributionState, String distributionStateInfo) {
-        // TODO 后期添加更新分库分表中，用户个人的抽奖记录表中奖品发奖状态
-        log.info("TODO 后期添加更新分库分表中，用户个人的抽奖记录表中奖品发奖状态 uId：{}", uId);
+    protected void updateUserAwardGrantState(String uId, Long orderId, Long awardId,
+                                             Integer grantState) {
+        awardRepository.updateUserAwardGrantState(uId, orderId, awardId, grantState);
     }
 
 }

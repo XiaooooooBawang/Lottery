@@ -19,6 +19,7 @@
         <result property="awardName" column="award_name" jdbcType="VARCHAR"/>
         <result property="awardContent" column="award_content" jdbcType="VARCHAR"/>
         <result property="uuid" column="uuid" jdbcType="VARCHAR"/>
+        <result property="mqState" column="mq_state" jdbcType="TINYINT"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
@@ -28,20 +29,30 @@
         INSERT INTO user_strategy_export
         (u_id, activity_id, order_id, strategy_id, strategy_mode,
          grant_type, grant_date, grant_state, award_id, award_type,
-         award_name, award_content, uuid, create_time, update_time)
+         award_name, award_content, uuid, mq_state, create_time, update_time)
         VALUES
             (#{uId},#{activityId},#{orderId},#{strategyId},#{strategyMode},
              #{grantType},#{grantDate},#{grantState},#{awardId},#{awardType},
-             #{awardName},#{awardContent},#{uuid},now(),now())
+             #{awardName},#{awardContent},#{uuid},#{mqState},now(),now())
     </insert>
 
     <select id="queryUserStrategyExportByUId" parameterType="java.lang.String" resultMap="userStrategyExportMap">
         SELECT id, u_id, activity_id, order_id, strategy_id, strategy_mode,
                grant_type, grant_date, grant_state, award_id, award_type,
-               award_name, award_content, uuid, create_time, update_time
+               award_name, award_content, uuid, mq_state, create_time, update_time
         FROM user_strategy_export
         WHERE u_id = #{uId}
     </select>
+
+    <update id="updateUserAwardGrantState" parameterType="com.xbw.lottery.infrastructure.po.UserStrategyExport">
+        UPDATE user_strategy_export SET grant_state = #{grantState}, grant_date = now(), update_time = now()
+        WHERE u_id = #{uId} AND order_id = #{orderId} AND award_id = #{awardId}
+    </update>
+
+    <update id="updateInvoiceMqState" parameterType="com.xbw.lottery.infrastructure.po.UserStrategyExport">
+        UPDATE user_strategy_export SET mq_state = #{mqState}, update_time = now()
+        WHERE u_id = #{uId} AND order_id = #{orderId}
+    </update>
 
 
 </mapper>

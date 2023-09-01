@@ -1,5 +1,6 @@
 package com.xbw.lottery.application.process.impl;
 
+import com.xbw.lottery.application.mq.producer.KafkaProducer;
 import com.xbw.lottery.application.process.IActivityProcess;
 import com.xbw.lottery.application.process.req.DrawProcessReq;
 import com.xbw.lottery.application.process.res.DrawProcessResult;
@@ -9,6 +10,7 @@ import com.xbw.lottery.common.Result;
 import com.xbw.lottery.domain.activity.model.req.PartakeReq;
 import com.xbw.lottery.domain.activity.model.res.PartakeResult;
 import com.xbw.lottery.domain.activity.model.vo.DrawOrderVO;
+import com.xbw.lottery.domain.activity.model.vo.InvoiceVO;
 import com.xbw.lottery.domain.activity.service.partake.IActivityPartake;
 import com.xbw.lottery.domain.rule.model.req.DecisionMatterReq;
 import com.xbw.lottery.domain.rule.model.res.EngineResult;
@@ -18,12 +20,17 @@ import com.xbw.lottery.domain.strategy.model.res.DrawResult;
 import com.xbw.lottery.domain.strategy.model.vo.DrawAwardVO;
 import com.xbw.lottery.domain.strategy.service.draw.IDrawExec;
 import com.xbw.lottery.domain.support.ids.IIdGenerator;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
+import org.springframework.util.concurrent.ListenableFuture;
+import org.springframework.util.concurrent.ListenableFutureCallback;
 
 import javax.annotation.Resource;
 import java.util.Map;
 
 @Service
+@Slf4j
 public class ActivityProcessImpl implements IActivityProcess {
 
     @Resource
@@ -34,6 +41,9 @@ public class ActivityProcessImpl implements IActivityProcess {
 
     @Resource
     private Map<Constants.Ids, IIdGenerator> idGeneratorMap;
+
+    @Resource
+    private KafkaProducer kafkaProducer;
 
     @Resource(name = "ruleEngineHandle")
     private EngineFilter engineFilter;
@@ -58,13 +68,34 @@ public class ActivityProcessImpl implements IActivityProcess {
         DrawAwardVO drawAwardVO = drawResult.getDrawAwardVO();
 
         // 3. 结果落库
-        Result result = activityPartake.recordDrawOrder(buildDrawOrderVO(req, strategyId, takeId, drawAwardVO));
-        if (Constants.ResponseCode.INDEX_DUP.getCode().equals(result.getCode()) ||
-                Constants.ResponseCode.UPDATE_FAIL.getCode().equals(result.getCode())) {
-            return new DrawProcessResult(result.getCode(), result.getInfo());
+        DrawOrderVO drawOrderVO = buildDrawOrderVO(req, strategyId, takeId, drawAwardVO);
+        Result recordResult = activityPartake.recordDrawOrder(drawOrderVO);
+        if (!Constants.ResponseCode.SUCCESS.getCode().equals(recordResult.getCode())) {
+            return new DrawProcessResult(recordResult.getCode(), recordResult.getInfo());
         }
 
         // 4. 发送MQ，触发发奖流程
+        InvoiceVO invoiceVO = buildInvoiceVO(drawOrderVO);
+        ListenableFuture<SendResult<String, Object>> future = kafkaProducer.sendLotteryInvoice(invoiceVO);
+
+        String uId = invoiceVO.getuId();
+        Long orderId = invoiceVO.getOrderId();
+
+        future.addCallback(new ListenableFutureCallback<SendResult<String, Object>>() {
+
+            @Override
+            public void onSuccess(SendResult<String, Object> stringObjectSendResult) {
+                // 4.1 mq 消息发送完成，更新库表的mq状态 user_strategy_export.mq_state = 1
+                activityPartake.updateInvoiceMqState(uId, orderId, Constants.MQState.COMPLETE.getCode());
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                // 4.2 mq消息发送失败，更新库表mq状态 user_strategy_export.mq_state = 2 【等待定时任务扫码补偿MQ消息】
+                activityPartake.updateInvoiceMqState(uId, orderId, Constants.MQState.FAIL.getCode());
+            }
+        });
+
 
         // 5. 返回结果
         return new DrawProcessResult(Constants.ResponseCode.SUCCESS.getCode(), Constants.ResponseCode.SUCCESS.getInfo(), drawAwardVO);
@@ -103,5 +134,18 @@ public class ActivityProcessImpl implements IActivityProcess {
         drawOrderVO.setAwardName(drawAwardVO.getAwardName());
         drawOrderVO.setAwardContent(drawAwardVO.getAwardContent());
         return drawOrderVO;
+    }
+
+    private InvoiceVO buildInvoiceVO(DrawOrderVO drawOrderVO) {
+        InvoiceVO invoiceVO = new InvoiceVO();
+        invoiceVO.setuId(drawOrderVO.getuId());
+        invoiceVO.setOrderId(drawOrderVO.getOrderId());
+        invoiceVO.setAwardId(drawOrderVO.getAwardId());
+        invoiceVO.setAwardType(drawOrderVO.getAwardType());
+        invoiceVO.setAwardName(drawOrderVO.getAwardName());
+        invoiceVO.setAwardContent(drawOrderVO.getAwardContent());
+        invoiceVO.setShippingAddress(null);
+        invoiceVO.setExtInfo(null);
+        return invoiceVO;
     }
 }

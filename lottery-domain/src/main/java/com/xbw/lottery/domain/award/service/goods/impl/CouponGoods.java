@@ -19,23 +19,15 @@ public class CouponGoods extends DistributionBase implements IDistributionGoods 
     @Override
     public DistributionRes doDistribution(GoodsReq goodsReq) {
         String uid = goodsReq.getuId();
-        String orderId = goodsReq.getOrderId();
+        Long orderId = goodsReq.getOrderId();
         Long awardId = goodsReq.getAwardId();
 
         log.info("模拟调用优惠券发放接口 userId：{} awardContent：{}", uid, goodsReq.getAwardContent());
 
-        Integer code = Constants.DistributionState.SUCCESS.getCode();
-        String info = Constants.DistributionState.SUCCESS.getInfo();
-
         // 更新用户领奖结果
-        super.updateUserAwardDistributionState(uid, orderId, awardId, code, info);
+        super.updateUserAwardGrantState(uid, orderId, awardId, Constants.GrantState.COMPLETE.getCode());
 
         // 返回发奖结果
-        return new DistributionRes(uid, code, info);
+        return new DistributionRes(uid, Constants.AwardState.SUCCESS.getCode(), Constants.AwardState.SUCCESS.getInfo());
     }
-
-    public Integer getAwardTypeCode() {
-        return Constants.AwardType.COUPON.getCode();
-    }
-
 }
