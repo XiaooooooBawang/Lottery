@@ -5,6 +5,8 @@ import cn.bugstack.middleware.db.router.annotation.DBRouterStrategy;
 import com.xbw.lottery.infrastructure.po.UserStrategyExport;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * 用户策略计算结果表DAO
  */
@@ -40,5 +42,14 @@ public interface IUserStrategyExportDao {
      */
     @DBRouter
     void updateInvoiceMqState(UserStrategyExport userStrategyExport);
+
+
+    /**
+     * 扫描发货单 MQ 状态，把未发送 MQ 的单子扫描出来，做补偿
+     * 包括发送失败（state=2）和未发送但已经过了半小时（state=0 and now() - create_time > 1800000）
+     *
+     * @return 发货单
+     */
+    List<UserStrategyExport> scanInvoiceMqState();
 
 }
