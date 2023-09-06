@@ -17,7 +17,10 @@ public class Constants {
 
         LOSING_DRAW(5, "未中奖"),
 
-        RULE_ERR(6, "量化人群规则执行失败")
+        RULE_ERR(6, "量化人群规则执行失败"),
+        NOT_CONSUMED_TAKE(7, "未消费活动领取记录"),
+        OUT_OF_STOCK(8, "活动无库存"),
+        ERR_TOKEN(9, "分布式锁失败")
         ;
 
 
@@ -356,4 +359,26 @@ public class Constants {
             this.info = info;
         }
     }
+
+    /**
+     * 缓存 Key
+     */
+    public static final class RedisKey {
+
+        // 抽奖活动已使用库存 Key，不用来加锁，只是拿来做库存记录判断的
+        private static final String LOTTERY_ACTIVITY_STOCK_USED_COUNT = "lottery_activity_stock_used_count_";
+
+        public static String KEY_LOTTERY_ACTIVITY_STOCK_USED_COUNT(Long activityId) {
+            return LOTTERY_ACTIVITY_STOCK_USED_COUNT + activityId;
+        }
+
+        // 抽奖活动已使用库存锁 Key，拿来加锁的
+        private static final String LOTTERY_ACTIVITY_STOCK_USED_COUNT_TOKEN = "lottery_activity_stock_used_count_token_";
+
+        public static String KEY_LOTTERY_ACTIVITY_STOCK_USED_COUNT_TOKEN(Long activityId, Integer stockUsedCount) {
+            return LOTTERY_ACTIVITY_STOCK_USED_COUNT_TOKEN + activityId + "_" + stockUsedCount;
+        }
+
+    }
+
 }

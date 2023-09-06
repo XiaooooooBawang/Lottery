@@ -34,4 +34,11 @@ public interface IActivityDao {
      * @return 待处理的活动集合.
      */
     List<Activity> scanToDoActivityList(Long id);
+
+    /**
+     * 更新用户领取活动后，活动库存
+     *
+     * @param activity  入参
+     */
+    void updateActivityStock(Activity activity);
 }
