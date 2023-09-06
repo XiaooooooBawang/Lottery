@@ -2,7 +2,6 @@ package com.xbw.lottery.application.mq.consumer;
 
 import cn.hutool.core.lang.Assert;
 import com.google.gson.Gson;
-import com.xbw.lottery.application.mq.producer.KafkaProducer;
 import com.xbw.lottery.common.Constants;
 import com.xbw.lottery.domain.activity.model.vo.InvoiceVO;
 import com.xbw.lottery.domain.award.model.req.GoodsReq;
@@ -20,6 +19,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.Optional;
 
+import static com.xbw.lottery.application.mq.producer.KafkaProducer.CONSUMER_GROUP;
+import static com.xbw.lottery.application.mq.producer.KafkaProducer.TOPIC_INVOICE;
+
 /**
  * 中奖发货单监听消息
  */
@@ -32,7 +34,7 @@ public class KafkaInvoiceListener {
 
     Gson gson = new Gson();
 
-    @KafkaListener(topics = KafkaProducer.TOPIC_INVOICE, groupId = KafkaProducer.INVOICE_GROUP)
+    @KafkaListener(topics = TOPIC_INVOICE, groupId = CONSUMER_GROUP)
     public void onMessage(ConsumerRecord<?, ?> record, Acknowledgment ack, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
         Optional<?> message = Optional.ofNullable(record.value());
 
@@ -56,7 +58,7 @@ public class KafkaInvoiceListener {
             Assert.isTrue(Constants.AwardState.SUCCESS.getCode().equals(distributionRes.getCode()), distributionRes.getInfo());
 
             // 2.3 记录日志
-            log.info("消费MQ消息，完成 topic：{} uId：{} 发奖结果：{}", topic, invoiceVO.getuId(), gson.toJson(distributionRes));
+            log.info("消费MQ消息，完成 topic：{} bizId：{} 发奖结果：{}", topic, invoiceVO.getuId(), gson.toJson(distributionRes));
 
             // 2.4 ack
             ack.acknowledge();

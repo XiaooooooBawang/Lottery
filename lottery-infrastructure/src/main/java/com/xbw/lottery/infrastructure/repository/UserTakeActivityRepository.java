@@ -2,13 +2,16 @@ package com.xbw.lottery.infrastructure.repository;
 
 
 import com.xbw.lottery.common.Constants;
+import com.xbw.lottery.domain.activity.model.vo.ActivityPartakeRecordVO;
 import com.xbw.lottery.domain.activity.model.vo.DrawOrderVO;
 import com.xbw.lottery.domain.activity.model.vo.InvoiceVO;
 import com.xbw.lottery.domain.activity.model.vo.UserTakeActivityVO;
 import com.xbw.lottery.domain.activity.repository.IUserTakeActivityRepository;
+import com.xbw.lottery.infrastructure.dao.IActivityDao;
 import com.xbw.lottery.infrastructure.dao.IUserStrategyExportDao;
 import com.xbw.lottery.infrastructure.dao.IUserTakeActivityCountDao;
 import com.xbw.lottery.infrastructure.dao.IUserTakeActivityDao;
+import com.xbw.lottery.infrastructure.po.Activity;
 import com.xbw.lottery.infrastructure.po.UserStrategyExport;
 import com.xbw.lottery.infrastructure.po.UserTakeActivity;
 import com.xbw.lottery.infrastructure.po.UserTakeActivityCount;
@@ -24,6 +27,9 @@ import java.util.List;
  */
 @Repository
 public class UserTakeActivityRepository implements IUserTakeActivityRepository {
+
+    @Resource
+    private IActivityDao activityDao;
 
     @Resource
     private IUserTakeActivityCountDao userTakeActivityCountDao;
@@ -138,6 +144,14 @@ public class UserTakeActivityRepository implements IUserTakeActivityRepository {
             invoiceVOList.add(invoiceVO);
         }
         return invoiceVOList;
+    }
+
+    @Override
+    public void updateActivityStock(ActivityPartakeRecordVO activityPartakeRecordVO) {
+        Activity activity = new Activity();
+        activity.setActivityId(activityPartakeRecordVO.getActivityId());
+        activity.setStockSurplusCount(activityPartakeRecordVO.getStockSurplusCount());
+        activityDao.updateActivityStock(activity);
     }
 
 }
